@@ -7,7 +7,7 @@ app.Food = Backbone.Model.extend({
 
   defaults: {
     name: '',
-    amount: 0,
+    quantity: 0,
     caloriePerUnit: 0,
     totalCalorie: 0
   }

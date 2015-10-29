@@ -7,15 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css"> -->
 </head>
 <body>
   <section class="ctapp">
     <header class="header">
       <h1>Calorie Tracker</h1>
       <input class="new-food-name" placeholder="Type in the food name" autofocus>
-      <input class="new-food-amount" placeholder="Amount (g)">
-      <input class="new-food-calorie" placeholder="Calorie">
-      <ul class="search-results"></ul>
+      <input class="new-food-calorie" placeholder="Calorie"> (kcal)
+      <input class="new-food-quantity" placeholder="Quantity">
+      <span class="serving-size-unit">Unit</span>
+      Total: <span class="item-calorie"></span> (kcal)
+      <button class="add-food" type="button">Add</button>
     </header>
 
     <section class="main">
@@ -31,11 +34,11 @@
     <div class="view">
       <button class="destroy"></button>
       <span class="food-name"><%= name %></span>
-      <span class="food-amount"><%= amount %></span>
+      <span class="food-quantity"><%= quantity %></span>
       <span class="food-calorie"><%= caloriePerUnit %></span>
       <span class="food-total-calorie"><%= totalCalorie %></span>
     </div>
-    <input class="edit-food-amount" value="<%= amount %>">
+    <input class="edit-food-quantity" value="<%= quantity %>">
   </script>
 
   <script type="text/template" id="total-calories">
@@ -43,6 +46,7 @@
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
   <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>

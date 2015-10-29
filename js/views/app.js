@@ -10,27 +10,71 @@ app.AppView = Backbone.View.extend({
 
   events: {
     // 'keypress .new-food-name': 'createOnEnter',
-    'keyup .new-food-name': 'searchFood',
-    'keypress .new-food-amount': 'createOnEnter',
-    'keypress .new-food-calorie': 'createOnEnter'
+    // 'keyup .new-food-name': 'searchFood',
+    'keyup .new-food-quantity': 'updateTotal',
+    'keyup .new-food-calorie': 'updateTotal'
+
   },
 
   initialize: function() {
     this.$main = this.$('main');
     this.$footer = this.$('footer');
     this.$foodname = this.$('.new-food-name');
-    this.$foodamount = this.$('.new-food-amount');
+    this.$foodquantity = this.$('.new-food-quantity');
     this.$foodcalorie = this.$('.new-food-calorie');
+    this.$servingSizeUnit = this.$('.serving-size-unit');
+    this.$itemCalorie = this.$('.item-calorie');
 
 
     this.listenTo(app.FoodList, 'add', this.addOne);
     this.listenTo(app.FoodList, 'reset', this.addAll);
     this.listenTo(app.FoodList, 'all', this.render);
-
   },
 
   render: function() {
     var totalCalories = app.FoodList.totalCalories();
+    var foodname = this.$foodname;
+    var foodcalorie = this.$foodcalorie;
+    var foodquantity = this.$foodquantity;
+    var servingSizeUnit = this.$servingSizeUnit;
+    var itemCalorie = this.$itemCalorie;
+
+    // Add autocomplete to the search field
+    foodname.autocomplete({
+      source: function(request, response) {
+        var name = request.term;
+        var url = 'https://api.nutritionix.com/v1_1/search/' + name + '?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_serving_size_unit%2Cnf_serving_size_qty%2Cnf_serving_weight_grams&appId=ab67ebd5&appKey=ff8d79e60c8d9447ddf0457786be4f77';
+
+        $.ajax({
+          url: url
+        }).done(function(msg) {
+          response(_.map(msg.hits, function(item) {
+            return {
+              value: item.fields.item_name + ' / ' + item.fields.brand_name,
+              nfCalories: item.fields.nf_calories,
+              nfServingSizeUnit: item.fields.nf_serving_size_unit,
+              nfServingSizeQty: item.fields.nf_serving_size_qty,
+              nfServingWeightGrams: item.fields.nf_serving_weight_grams,
+              obj: item
+            };
+          }));
+        });
+      },
+      select: function(event, ui) {
+        var calorie = parseFloat(ui.item.nfCalories) * parseFloat(ui.item.nfServingSizeQty);
+
+        foodname.val(ui.item.value);
+        foodquantity.val('1');
+        foodcalorie.val(ui.item.nfCalories);
+        servingSizeUnit.text(ui.item.nfServingSizeUnit);
+        itemCalorie.text(calorie);
+
+      },
+      error: function(event, ui) {
+        console.log( "Request failed: " + textStatus );
+      }
+    });
+
 
     if (app.FoodList.length) {
       this.$main.show();
@@ -43,6 +87,16 @@ app.AppView = Backbone.View.extend({
       this.$main.hide();
       this.$footer.hide();
     }
+  },
+
+
+
+  updateTotal: function() {
+    var calorie_per_unit = parseFloat(this.$foodcalorie.val().trim());
+    var quantity = parseFloat(this.$foodquantity.val().trim());
+    var calorie = (!isNaN(calorie_per_unit) && !isNaN(quantity)) ? (calorie_per_unit * quantity).toFixed(2) : '-';
+
+    this.$itemCalorie.text(calorie);
   },
 
   addOne: function(food) {
@@ -58,26 +112,26 @@ app.AppView = Backbone.View.extend({
   newAttributes: function() {
 
     var name = this.$foodname.val().trim();
-    var amount = parseInt(this.$foodamount.val().trim());
+    var quantity = parseInt(this.$foodquantity.val().trim());
     var caloriePerUnit = parseInt(this.$foodcalorie.val().trim());
 
     return {
       name: name,
-      amount: amount,
+      quantity: quantity,
       caloriePerUnit: caloriePerUnit,
-      totalCalorie: (function(a, c){
+      itemCalorie: (function(a, c){
         return a * c;
-      })(amount, caloriePerUnit)
+      })(quantity, caloriePerUnit)
     };
   },
 
   createOnEnter: function(e) {
-    if (e.which !== ENTER_KEY || !(this.$foodname.val().trim() && this.$foodamount.val().trim()) ) {
+    if (e.which !== ENTER_KEY || !(this.$foodname.val().trim() && this.$foodquantity.val().trim()) ) {
       return;
     }
     app.FoodList.create(this.newAttributes());
     this.$foodname.val('');
-    this.$foodamount.val('');
+    this.$foodquantity.val('');
     this.$foodcalorie.val('');
   },
 

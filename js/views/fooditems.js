@@ -11,8 +11,8 @@ app.FoodView = Backbone.View.extend({
   events: {
     'click .destroy': 'clear',
     'dblclick span': 'edit',
-    'keypress .edit-food-amount': 'updateOnEnter',
-    'blur .edit-food-amount': 'close'
+    'keypress .edit-food-quantity': 'updateOnEnter',
+    'blur .edit-food-quantity': 'close'
   },
 
   initialize: function() {
@@ -23,20 +23,20 @@ app.FoodView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template(this.model.attributes));
 
-    this.$foodamount = this.$('.edit-food-amount');
+    this.$foodquantity = this.$('.edit-food-quantity');
     return this;
   },
 
   edit: function() {
     this.$el.addClass('editing');
-    this.$foodamount.focus();
+    this.$foodquantity.focus();
   },
 
   close: function() {
-    var value = this.$foodamount.val().trim();
+    var value = this.$foodquantity.val().trim();
 
     if (value) {
-      this.model.save({amount: value});
+      this.model.save({quantity: value});
     }
 
     this.$el.removeClass('editing');
