@@ -12,12 +12,18 @@
 <body>
   <section class="ctapp">
     <header class="header">
-      <h1>Calorie Tracker</h1>
-      <input class="new-food-name" placeholder="Type in the food name" autofocus>
-      <input class="new-food-calorie" placeholder="Calorie"> (kcal)
-      <input class="new-food-quantity" placeholder="Quantity">
-      <span class="serving-size-unit">Unit</span>
-      Total: <span class="item-calorie"></span> (kcal)
+      <h1 class="title">Calorie Tracker</h1>
+      <div class="food-name-input">
+        <input id="autocomplete" class="new-food-name" placeholder="Type in the food name" autofocus>
+      </div>
+      <div class="food-quantity-input">
+        <input class="new-food-calorie" placeholder="Calorie"> (kcal)
+        <input class="new-food-quantity" placeholder="Quantity">
+        <span class="serving-size-unit">Unit</span>
+      </div>
+      <div>
+        Total: <span class="item-calorie">-</span> (kcal)
+      </div>
       <button class="add-food" type="button">Add</button>
     </header>
 
@@ -36,7 +42,7 @@
       <span class="food-name"><%= name %></span>
       <span class="food-quantity"><%= quantity %></span>
       <span class="food-calorie"><%= caloriePerUnit %></span>
-      <span class="food-total-calorie"><%= totalCalorie %></span>
+      <span class="food-total-calorie"><%= itemCalorie %></span>
     </div>
     <input class="edit-food-quantity" value="<%= quantity %>">
   </script>
@@ -45,8 +51,8 @@
     <span class="total-caloties"><%= totalCalories %></span>
   </script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
   <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>

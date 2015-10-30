@@ -1,0 +1,48 @@
+.ctapp {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 3rem;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+header div {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+}
+
+.food-name-input {
+  position: relative;
+}
+
+input {
+  position: relative;
+  height: 2rem;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+.new-food-name {
+  width: 100%;
+}
+
+.new-food-calorie {
+  width: 10rem;
+}
+
+.new-food-quantity {
+  width: 10rem;
+}
+
+.ui-autocomplete {
+  font-size: 1.5rem;
+  background-color: #fff;
+}
+
+.ui-menu-item {
+  padding: 0.2rem;
+}

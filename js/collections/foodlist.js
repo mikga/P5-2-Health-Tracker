@@ -20,7 +20,7 @@ var FoodList = Backbone.Firebase.Collection.extend({
     // }
     // return tc;
 
-    return _.reduce(this.models, function(t, f){return t + f.attributes.totalCalorie; }, 0);
+    return _.reduce(this.models, function(t, f){return t + f.attributes.itemCalorie; }, 0);
   }
 
 });

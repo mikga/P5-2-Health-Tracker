@@ -12,7 +12,8 @@ app.AppView = Backbone.View.extend({
     // 'keypress .new-food-name': 'createOnEnter',
     // 'keyup .new-food-name': 'searchFood',
     'keyup .new-food-quantity': 'updateTotal',
-    'keyup .new-food-calorie': 'updateTotal'
+    'keyup .new-food-calorie': 'updateTotal',
+    'click .add-food': 'createOne'
 
   },
 
@@ -40,7 +41,7 @@ app.AppView = Backbone.View.extend({
     var itemCalorie = this.$itemCalorie;
 
     // Add autocomplete to the search field
-    foodname.autocomplete({
+    $('#autocomplete').autocomplete({
       source: function(request, response) {
         var name = request.term;
         var url = 'https://api.nutritionix.com/v1_1/search/' + name + '?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_serving_size_unit%2Cnf_serving_size_qty%2Cnf_serving_weight_grams&appId=ab67ebd5&appKey=ff8d79e60c8d9447ddf0457786be4f77';
@@ -72,6 +73,10 @@ app.AppView = Backbone.View.extend({
       },
       error: function(event, ui) {
         console.log( "Request failed: " + textStatus );
+      },
+      messages: {
+        noResults: '',
+        results: function() {}
       }
     });
 
@@ -125,8 +130,8 @@ app.AppView = Backbone.View.extend({
     };
   },
 
-  createOnEnter: function(e) {
-    if (e.which !== ENTER_KEY || !(this.$foodname.val().trim() && this.$foodquantity.val().trim()) ) {
+  createOne: function(e) {
+    if (!(this.$foodname.val().trim() && this.$foodquantity.val().trim()) ) {
       return;
     }
     app.FoodList.create(this.newAttributes());
