@@ -19,6 +19,7 @@ app.AppView = Backbone.View.extend({
 
   initialize: function() {
     this.$main = this.$('main');
+    this.$tableHeader = this.$('.table-header');
     this.$footer = this.$('footer');
     this.$foodname = this.$('.new-food-name');
     this.$foodquantity = this.$('.new-food-quantity');
@@ -83,6 +84,7 @@ app.AppView = Backbone.View.extend({
 
     if (app.FoodList.length) {
       this.$main.show();
+      this.$tableHeader.show();
       this.$footer.show();
 
       this.$footer.html(this.totalCaloriesTemplate({
@@ -90,6 +92,7 @@ app.AppView = Backbone.View.extend({
       }));
     } else {
       this.$main.hide();
+      this.$tableHeader.hide();
       this.$footer.hide();
     }
   },
@@ -138,6 +141,8 @@ app.AppView = Backbone.View.extend({
     this.$foodname.val('');
     this.$foodquantity.val('');
     this.$foodcalorie.val('');
+    this.$servingSizeUnit.text('');
+    this.$itemCalorie.text('');
   },
 
   searchFood: function() {

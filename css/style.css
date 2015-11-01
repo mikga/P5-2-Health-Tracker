@@ -19,6 +19,11 @@ header div {
   position: relative;
 }
 
+label {
+  display: block;
+  font-size: 1rem;
+}
+
 input {
   position: relative;
   height: 2rem;
@@ -37,6 +42,7 @@ input {
 .new-food-quantity {
   width: 10rem;
 }
+
 
 .ui-autocomplete {
   font-size: 1.5rem;

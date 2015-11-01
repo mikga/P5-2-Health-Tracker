@@ -6,49 +6,76 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css"> -->
 </head>
 <body>
-  <section class="ctapp">
-    <header class="header">
-      <h1 class="title">Calorie Tracker</h1>
-      <div class="food-name-input">
+  <section class="ctapp container-fluid">
+    <header class="header row">
+      <h1 class="title col-xs-12">Calorie Tracker</h1>
+      <div class="food-name-input col-xs-12">
+        <label>Food name</label>
         <input id="autocomplete" class="new-food-name" placeholder="Type in the food name" autofocus>
       </div>
-      <div class="food-quantity-input">
-        <input class="new-food-calorie" placeholder="Calorie"> (kcal)
+      <div class="food-calorie-input col-xs-4">
+        <label>Calories</label>
+        <input class="new-food-calorie" placeholder="Calorie">
+        <span class="calorie-unit">(kcal)</span>
+      </div>
+      <div class="food-quantity-input col-xs-4">
+        <label>Quantity</label>
         <input class="new-food-quantity" placeholder="Quantity">
         <span class="serving-size-unit">Unit</span>
       </div>
-      <div>
-        Total: <span class="item-calorie">-</span> (kcal)
+      <div class="food-total-calories col-xs-4">
+        <label>Total calories</label>
+        <span class="item-calorie">-</span> (kcal)
       </div>
-      <button class="add-food" type="button">Add</button>
+      <div class="food-add-input col-xs-12">
+        <button class="add-food" type="button">Add</button>
+      </div>
     </header>
 
     <section class="main">
       <ul class="food-list">
+        <div class="table-header row">
+          <div class="col-xs-9">Food name</div>
+          <div class="col-xs-1">Quantity</div>
+          <div class="col-xs-1">Unit calorie</div>
+          <div class="col-xs-1">Total calorie</div>
+        </div>
       </ul>
     </section>
 
-    <footer class="footer">
+    <footer class="footer row">
     </footer>
   </section>
 
   <script type="text/template" id="food-item-template">
-    <div class="view">
-      <button class="destroy"></button>
-      <span class="food-name"><%= name %></span>
-      <span class="food-quantity"><%= quantity %></span>
-      <span class="food-calorie"><%= caloriePerUnit %></span>
-      <span class="food-total-calorie"><%= itemCalorie %></span>
+    <div class="view row">
+      <div class="col-xs-9">
+        <button class="destroy"></button>
+        <span class="food-name"><%= name %></span>
+      </div>
+      <div class="col-xs-1">
+        <span class="food-quantity"><%= quantity %></span>
+      </div>
+      <div class="col-xs-1">
+        <span class="food-calorie"><%= caloriePerUnit %></span>
+      </div>
+      <div class="col-xs-1">
+        <span class="food-total-calorie"><%= itemCalorie %></span>
+      </div>
     </div>
-    <input class="edit-food-quantity" value="<%= quantity %>">
   </script>
 
   <script type="text/template" id="total-calories">
-    <span class="total-caloties"><%= totalCalories %></span>
+    <div class="col-xs-11">
+      <span>Total calories (kcal)</span>
+    </div>
+    <div class="col-xs-1">
+      <span class="total-caloties"><%= totalCalories %></span>
+    </div>
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
