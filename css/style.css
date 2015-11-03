@@ -1,3 +1,8 @@
+body {
+  box-sizing: border-box;
+  color: #555;
+}
+
 .ctapp {
   max-width: 960px;
   margin: 0 auto;
@@ -21,14 +26,26 @@ header div {
 
 label {
   display: block;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 input {
   position: relative;
-  height: 2rem;
-  font-size: 1.5rem;
-  padding: 0.5rem;
+  margin: 0;
+  padding: 1rem;
+  height: 4rem;
+  font-size: 1.6rem;
+  line-height: 1.5em;
+  box-sizing: border-box;
+  border: 0;
+  outline: none;
+  padding: 0.2rem;
+  border: 1px solid #999;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased;
 }
 
 .new-food-name {
@@ -43,12 +60,65 @@ input {
   width: 10rem;
 }
 
-
 .ui-autocomplete {
   font-size: 1.5rem;
   background-color: #fff;
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  -webkit-box-shadow: 5px 10px 10px 0px rgba(214,214,214,1);
+  -moz-box-shadow: 5px 10px 10px 0px rgba(214,214,214,1);
+  box-shadow: 5px 10px 10px 0px rgba(214,214,214,1);
 }
 
 .ui-menu-item {
   padding: 0.2rem;
+  border-top: 1px solid #e6e6e6;
+  line-height: 3rem;
+  height: 3rem;
 }
+
+.ui-menu-item a {
+  color: #555;
+}
+
+.ui-state-hover,
+.ui-widget-content
+.ui-state-hover,
+.ui-widget-header
+.ui-state-hover,
+.ui-state-focus,
+.ui-widget-content
+.ui-state-focus,
+.ui-widget-header
+.ui-state-focus {
+    background: #bbb;
+    border: none;
+    color:#fff;
+    border-radius:0;
+    font-weight: normal;
+}
+
+/*.ui-menu-item:hover {
+  background-color: #CCC;
+}
+
+.ui-menu-item:hover a {
+  color: #fff;
+  text-decoration: none;
+}*/
+
+
+.main {
+  position: relative;
+  border-top: 1px solid #e6e6e6;
+}
+
+
+.table-header {
+  text-align: center;
+}
+
+.table-number {
+  text-align: right;
+}
+

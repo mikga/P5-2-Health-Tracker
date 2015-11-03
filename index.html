@@ -38,12 +38,14 @@
 
     <section class="main">
       <ul class="food-list">
-        <div class="table-header row">
-          <div class="col-xs-9">Food name</div>
-          <div class="col-xs-1">Quantity</div>
-          <div class="col-xs-1">Unit calorie</div>
-          <div class="col-xs-1">Total calorie</div>
-        </div>
+        <li>
+          <div class="table-header row">
+            <div class="col-xs-7">Food name</div>
+            <div class="col-xs-1">Quantity</div>
+            <div class="col-xs-2">Unit calorie</div>
+            <div class="col-xs-2">Total calorie</div>
+          </div>
+        </li>
       </ul>
     </section>
 
@@ -53,27 +55,27 @@
 
   <script type="text/template" id="food-item-template">
     <div class="view row">
-      <div class="col-xs-9">
+      <div class="col-xs-7">
         <button class="destroy"></button>
         <span class="food-name"><%= name %></span>
       </div>
-      <div class="col-xs-1">
+      <div class="col-xs-1 table-number">
         <span class="food-quantity"><%= quantity %></span>
       </div>
-      <div class="col-xs-1">
+      <div class="col-xs-2 table-number">
         <span class="food-calorie"><%= caloriePerUnit %></span>
       </div>
-      <div class="col-xs-1">
+      <div class="col-xs-2 table-number">
         <span class="food-total-calorie"><%= itemCalorie %></span>
       </div>
     </div>
   </script>
 
   <script type="text/template" id="total-calories">
-    <div class="col-xs-11">
+    <div class="col-xs-10">
       <span>Total calories (kcal)</span>
     </div>
-    <div class="col-xs-1">
+    <div class="col-xs-2 table-number">
       <span class="total-caloties"><%= totalCalories %></span>
     </div>
   </script>

@@ -78,7 +78,8 @@ app.AppView = Backbone.View.extend({
       messages: {
         noResults: '',
         results: function() {}
-      }
+      },
+      appendTo: '.food-name-input'
     });
 
 
@@ -122,6 +123,7 @@ app.AppView = Backbone.View.extend({
     var name = this.$foodname.val().trim();
     var quantity = parseInt(this.$foodquantity.val().trim());
     var caloriePerUnit = parseInt(this.$foodcalorie.val().trim());
+    var servingSizeUnit = this.$servingSizeUnit.text();
 
     return {
       name: name,
@@ -129,7 +131,8 @@ app.AppView = Backbone.View.extend({
       caloriePerUnit: caloriePerUnit,
       itemCalorie: (function(a, c){
         return a * c;
-      })(quantity, caloriePerUnit)
+      })(quantity, caloriePerUnit),
+      servingSizeUnit: servingSizeUnit
     };
   },
 
@@ -141,8 +144,8 @@ app.AppView = Backbone.View.extend({
     this.$foodname.val('');
     this.$foodquantity.val('');
     this.$foodcalorie.val('');
-    this.$servingSizeUnit.text('');
-    this.$itemCalorie.text('');
+    this.$servingSizeUnit.text('Unit');
+    this.$itemCalorie.text('-');
   },
 
   searchFood: function() {
