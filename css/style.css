@@ -15,23 +15,10 @@ body {
   margin: 0 auto;
 }
 
-.title {
-  display: block;
-  width: 100%;
-  margin: 1rem 0;
-  color: #ffe0b2;
-  font-family: 'Roboto Condensed', sans-serif;
-  font-size: 6rem;
-  font-weight: 300;
-  text-align: center;
-}
+/* Header */
 
 header div {
   margin: 1rem 0;
-}
-
-.food-name-input {
-  position: relative;
 }
 
 label {
@@ -57,6 +44,21 @@ input {
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
+}
+
+.title {
+  display: block;
+  width: 100%;
+  margin: 1rem 0;
+  color: #ffe0b2;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 6rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+.food-name-input {
+  position: relative;
 }
 
 .item-calorie {
@@ -146,6 +148,7 @@ input {
   color: #f57c00;
 }
 
+/* Main */
 
 .main {
   position: relative;
@@ -178,7 +181,6 @@ input {
   background-color: #e6e6e6;
 }
 
-
 .destroy {
   border: none;
   outline: none;
@@ -195,10 +197,11 @@ input {
   color: #ff9800;
 }
 
+/* Footer */
+
 footer {
   color: #ff9800;
   padding: 0;
-  /*border-top: 1px solid #e6e6e6;*/
   font-size: 1.8rem;
   font-weight: 500;
 }

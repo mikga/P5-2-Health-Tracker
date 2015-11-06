@@ -1,8 +1,8 @@
 var app = app || {};
 
-// Food model
-// ----------
-
+/**
+ * Food model
+ */
 app.Food = Backbone.Model.extend({
 
   defaults: {

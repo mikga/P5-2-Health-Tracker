@@ -1,22 +1,23 @@
 var app = app || {};
 
-// The Application
-// ---------------
-
+/**
+ * The Application view
+ */
 app.AppView = Backbone.View.extend({
   el: '.ctapp',
 
+  // Template for the total calories field
   totalCaloriesTemplate: _.template($('#total-calories').html()),
 
+  // Event handlers
   events: {
-    // 'keypress .new-food-name': 'createOnEnter',
-    // 'keyup .new-food-name': 'searchFood',
     'keyup .new-food-quantity': 'updateTotal',
     'keyup .new-food-calorie': 'updateTotal',
     'click .add-food': 'createOne'
 
   },
 
+  /** Initialise the applicaiton view */
   initialize: function() {
     this.$main = this.$('main');
     this.$tableHeader = this.$('.table-header');
@@ -27,12 +28,13 @@ app.AppView = Backbone.View.extend({
     this.$servingSizeUnit = this.$('.serving-size-unit');
     this.$itemCalorie = this.$('.item-calorie');
 
-
+    // Listen to events
     this.listenTo(app.FoodList, 'add', this.addOne);
     this.listenTo(app.FoodList, 'reset', this.addAll);
     this.listenTo(app.FoodList, 'all', this.render);
   },
 
+  /** Render the application view */
   render: function() {
     var totalCalories = app.FoodList.totalCalories();
     var foodname = this.$foodname;
@@ -73,6 +75,8 @@ app.AppView = Backbone.View.extend({
 
       },
       error: function(event, ui) {
+        // When the ajax request fails, a message is shown to the console but nothing is shown to the browser
+        // because the autocomplete is not a critical functionality
         console.log( "Request failed: " + textStatus );
       },
       messages: {
@@ -82,7 +86,7 @@ app.AppView = Backbone.View.extend({
       appendTo: '.food-name-input'
     });
 
-
+    // Display or hide the list of food and total calories information
     if (app.FoodList.length) {
       this.$main.show();
       this.$tableHeader.show();
@@ -98,8 +102,7 @@ app.AppView = Backbone.View.extend({
     }
   },
 
-
-
+  /** Update total calorie */
   updateTotal: function() {
     var calorie_per_unit = parseFloat(this.$foodcalorie.val().trim());
     var quantity = parseFloat(this.$foodquantity.val().trim());
@@ -108,18 +111,20 @@ app.AppView = Backbone.View.extend({
     this.$itemCalorie.text(calorie);
   },
 
+  /** Add a food item to the view */
   addOne: function(food) {
     var view = new app.FoodView({model: food});
     $('.food-list').append(view.render().el);
   },
 
+  /** Add all food items to the view */
   addAll: function() {
     this.$('food-list').html('');
     app.FoodList.each(this.addOne, this);
   },
 
+  /** Helper function to create a food item */
   newAttributes: function() {
-
     var name = this.$foodname.val().trim();
     var quantity = parseInt(this.$foodquantity.val().trim());
     var caloriePerUnit = parseInt(this.$foodcalorie.val().trim());
@@ -136,6 +141,7 @@ app.AppView = Backbone.View.extend({
     };
   },
 
+  /** Add a food item to the list */
   createOne: function(e) {
     if (!(this.$foodname.val().trim() && this.$foodquantity.val().trim()) ) {
       return;
@@ -146,48 +152,6 @@ app.AppView = Backbone.View.extend({
     this.$foodcalorie.val('');
     this.$servingSizeUnit.text('Unit');
     this.$itemCalorie.text('-');
-  },
-
-  searchFood: function() {
-    var name = this.$foodname.val().trim();
-    var url = 'https://api.nutritionix.com/v1_1/search/' + name + '?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_serving_size_unit%2Cnf_serving_size_qty%2Cnf_serving_weight_grams&appId=ab67ebd5&appKey=ff8d79e60c8d9447ddf0457786be4f77';
-    $('.search-results').html('');
-
-    console.log('Search term: ' + name);
-
-    if (name) {
-
-      $.ajax({
-        url: url
-      }).done(function(msg) {
-        var itemName,
-            itemId,
-            brandName,
-            nfCalories,
-            nfServingSizeUnit,
-            nfServingSizeQty,
-            nfServingWeightGrams;
-
-        var items = msg.hits;
-
-        for (var i = 0, len = items.length; i < len; i++){
-          itemName = items[i].fields.item_name;
-          itemId = items[i].fields.item_id;
-          brandName = items[i].fields.brand_name;
-          nfCalories = items[i].fields.nf_calories;
-          nfServingSizeUnit = items[i].fields.nf_serving_size_unit;
-          nfServingSizeQty = items[i].fields.nf_serving_size_qty;
-          nfServingWeightGrams = items[i].fields.nf_serving_weight_grams;
-
-          $('.search-results').append('<li class="search-result-item"><span class="item-name">' + itemName + '</span> / <span class="brand-name">' + brandName + '</span></li>');
-          // console.log('Item name: ' + itemName + ', brandName: ' + brandName + ', nf_calories: ' + nfCalories + ', nf_serving_size_unit: ' + nfServingSizeUnit + ', nf_serving_size_qty: ' + nfServingSizeQty + ', nf_serving_weight_grams: ' + nfServingWeightGrams);
-        }
-
-      }).fail(function(jqXHR, textStatus) {
-        console.log( "Request failed: " + textStatus );
-      });
-
-    }
   }
 
 });
