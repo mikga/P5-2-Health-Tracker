@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -15,20 +16,20 @@
       <h1 class="title col-xs-12">Calorie Tracker</h1>
       <div class="food-name-input col-xs-12">
         <label>Food name</label>
-        <input id="autocomplete" class="new-food-name" placeholder="Type in the food name" autofocus>
+        <input id="autocomplete" class="new-food-name" placeholder="Type in food name" autofocus>
       </div>
-      <div class="food-calorie-input col-xs-4">
-        <label>Calories</label>
+      <div class="food-calorie-input col-xs-3">
+        <label>Calorie</label>
         <input class="new-food-calorie" placeholder="Calorie">
         <span class="calorie-unit">(kcal)</span>
       </div>
-      <div class="food-quantity-input col-xs-4">
+      <div class="food-quantity-input col-xs-6">
         <label>Quantity</label>
         <input class="new-food-quantity" placeholder="Quantity">
         <span class="serving-size-unit">Unit</span>
       </div>
-      <div class="food-total-calories col-xs-4">
-        <label>Total calories</label>
+      <div class="food-total-calories col-xs-3">
+        <label>Total calorie</label>
         <span class="item-calorie">-</span> (kcal)
       </div>
       <div class="food-add-input col-xs-12">
@@ -38,25 +39,25 @@
 
     <section class="main">
       <ul class="food-list">
-        <li>
-          <div class="table-header row">
+        <li class="table-header">
+          <div class="row">
             <div class="col-xs-7">Food name</div>
-            <div class="col-xs-1">Quantity</div>
-            <div class="col-xs-2">Unit calorie</div>
-            <div class="col-xs-2">Total calorie</div>
+            <div class="col-xs-1 table-number">Quantity</div>
+            <div class="col-xs-2 table-number">Unit calorie</div>
+            <div class="col-xs-2 table-number">Total calorie</div>
           </div>
         </li>
       </ul>
     </section>
 
-    <footer class="footer row">
+    <footer class="footer">
     </footer>
   </section>
 
   <script type="text/template" id="food-item-template">
     <div class="view row">
       <div class="col-xs-7">
-        <button class="destroy"></button>
+        <button class="destroy"><i class="icon-remove-sign"></i></button>
         <span class="food-name"><%= name %></span>
       </div>
       <div class="col-xs-1 table-number">
@@ -72,11 +73,13 @@
   </script>
 
   <script type="text/template" id="total-calories">
-    <div class="col-xs-10">
-      <span>Total calories (kcal)</span>
-    </div>
-    <div class="col-xs-2 table-number">
-      <span class="total-caloties"><%= totalCalories %></span>
+    <div class="row">
+      <div class="col-xs-10">
+        <span>Total calories (kcal)</span>
+      </div>
+      <div class="col-xs-2 table-number">
+        <span class="total-caloties"><%= totalCalories %></span>
+      </div>
     </div>
   </script>
 
