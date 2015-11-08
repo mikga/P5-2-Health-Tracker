@@ -13,7 +13,10 @@ app.AppView = Backbone.View.extend({
   events: {
     'keyup .new-food-quantity': 'updateTotal',
     'keyup .new-food-calorie': 'updateTotal',
-    'click .add-food': 'createOne'
+    'click .add-food': 'createOne',
+    'click .new-food-name': 'clearErrorMessage',
+    'click .new-food-quantity': 'clearErrorMessage',
+    'click .new-food-calorie': 'clearErrorMessage'
 
   },
 
@@ -27,16 +30,14 @@ app.AppView = Backbone.View.extend({
     this.$foodcalorie = this.$('.new-food-calorie');
     this.$servingSizeUnit = this.$('.serving-size-unit');
     this.$itemCalorie = this.$('.item-calorie');
+    this.$errorMessage = this.$('.error-message');
 
     // Listen to events
     this.listenTo(app.FoodList, 'add', this.addOne);
     this.listenTo(app.FoodList, 'reset', this.addAll);
     this.listenTo(app.FoodList, 'all', this.render);
-  },
 
-  /** Render the application view */
-  render: function() {
-    var totalCalories = app.FoodList.totalCalories();
+    // Variable for autocomplete
     var foodname = this.$foodname;
     var foodcalorie = this.$foodcalorie;
     var foodquantity = this.$foodquantity;
@@ -67,6 +68,7 @@ app.AppView = Backbone.View.extend({
       select: function(event, ui) {
         var calorie = parseFloat(ui.item.nfCalories) * parseFloat(ui.item.nfServingSizeQty);
 
+        // Update the fields with the selected item
         foodname.val(ui.item.value);
         foodquantity.val('1');
         foodcalorie.val(ui.item.nfCalories);
@@ -85,6 +87,13 @@ app.AppView = Backbone.View.extend({
       },
       appendTo: '.food-name-input'
     });
+
+  },
+
+  /** Render the application view */
+  render: function() {
+
+    var totalCalories = app.FoodList.totalCalories();
 
     // Display or hide the list of food and total calories information
     if (app.FoodList.length) {
@@ -143,15 +152,38 @@ app.AppView = Backbone.View.extend({
 
   /** Add a food item to the list */
   createOne: function(e) {
-    if (!(this.$foodname.val().trim() && this.$foodquantity.val().trim()) ) {
+
+    var food = new app.Food(this.newAttributes());
+
+    // Check if the input values are valid and if not, add the error messages
+    if (!food.isValid()) {
+      var errs = food.validationError;
+      var elem;
+      for (var i = 0, len = errs.length; i < len; i++) {
+        if (errs[i].attr === 'name') {
+          elem = this.$foodname;
+        } else if (errs[i].attr === 'quantity') {
+          elem = this.$foodquantity;
+        } else if (errs[i].attr === 'caloriePerUnit') {
+          elem = this.$foodcalorie;
+        }
+        elem.addClass('invalid');
+        elem.parent().append('<p class="error-message">' + errs[i].message + '</p>');
+      }
       return;
     }
+
     app.FoodList.create(this.newAttributes());
     this.$foodname.val('');
     this.$foodquantity.val('');
     this.$foodcalorie.val('');
     this.$servingSizeUnit.text('Unit');
     this.$itemCalorie.text('-');
+  },
+
+  clearErrorMessage: function(e){
+    $('.invalid').removeClass('invalid');
+    $('.error-message').remove();
   }
 
 });

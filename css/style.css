@@ -74,8 +74,25 @@ input {
   width: 10rem;
 }
 
+.calorie-unit {
+  margin: 0 0 0 0.5rem;
+}
+
 .new-food-quantity {
   width: 10rem;
+}
+
+.serving-size-unit {
+  margin: 0 0 0 0.5rem;
+}
+
+.invalid {
+  border: 1px solid #f00;
+}
+
+.error-message {
+  color: #f00;
+  margin: 0.5rem 0 0 0;
 }
 
 .ui-autocomplete {
