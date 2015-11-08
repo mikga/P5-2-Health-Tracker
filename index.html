@@ -18,17 +18,17 @@
         <label>Food name</label>
         <input id="autocomplete" class="new-food-name" placeholder="Type in food name" autofocus>
       </div>
-      <div class="food-calorie-input col-xs-3">
+      <div class="food-calorie-input col-xs-12 col-sm-3">
         <label>Calorie</label>
         <input class="new-food-calorie" placeholder="Calorie">
         <span class="calorie-unit">(kcal)</span>
       </div>
-      <div class="food-quantity-input col-xs-6">
+      <div class="food-quantity-input col-xs-12 col-sm-6">
         <label>Quantity</label>
         <input class="new-food-quantity" placeholder="Quantity">
         <span class="serving-size-unit">Unit</span>
       </div>
-      <div class="food-total-calories col-xs-3">
+      <div class="food-total-calories col-xs-12 col-sm-3">
         <label>Total calorie</label>
         <span class="item-calorie">-</span> (kcal)
       </div>
@@ -42,10 +42,10 @@
       <ul class="food-list">
         <li class="table-header">
           <div class="row">
-            <div class="col-xs-7">Food name</div>
-            <div class="col-xs-1 table-number">Quantity</div>
-            <div class="col-xs-2 table-number">Unit calorie</div>
-            <div class="col-xs-2 table-number">Total calorie</div>
+            <div class="col-xs-10 col-sm-7">Food name</div>
+            <div class="col-sm-1 hidden-xs table-number">Quantity</div>
+            <div class="col-sm-2 hidden-xs table-number">Unit calorie</div>
+            <div class="col-xs-2 col-sm-2 table-number">Total</div>
           </div>
         </li>
       </ul>
@@ -57,17 +57,17 @@
 
   <script type="text/template" id="food-item-template">
     <div class="view row">
-      <div class="col-xs-7">
+      <div class="col-xs-10 col-sm-7">
         <button class="destroy"><i class="icon-remove-sign"></i></button>
         <span class="food-name"><%= name %></span>
       </div>
-      <div class="col-xs-1 table-number">
+      <div class="col-sm-1 hidden-xs table-number">
         <span class="food-quantity"><%= quantity %></span>
       </div>
-      <div class="col-xs-2 table-number">
+      <div class="col-sm-2 hidden-xs table-number">
         <span class="food-calorie"><%= caloriePerUnit %></span>
       </div>
-      <div class="col-xs-2 table-number">
+      <div class="col-xs-2 col-sm-2 table-number">
         <span class="food-total-calorie"><%= itemCalorie %></span>
       </div>
     </div>
